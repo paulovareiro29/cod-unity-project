@@ -29,10 +29,13 @@ public class FPSController : MonoBehaviour
     public int maxStamina = 100;
     public float staminaDrainRate = 80f;
 
+
     [HideInInspector]
     public int currentHealth;
     [HideInInspector]
     public int currentStamina;
+    [HideInInspector]
+    public int currentScore = 0;
 
     void Start()
     {
@@ -120,9 +123,16 @@ public class FPSController : MonoBehaviour
         // Verifica se o jogador morreu
         if (currentHealth <= 0)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             // O jogador morreu, carrega a cena do menu
             SceneManager.LoadScene("MenuScene");
         }
+    }
+
+    public void IncreaseScore(int score)
+    {
+        currentScore += score;
     }
 
 }

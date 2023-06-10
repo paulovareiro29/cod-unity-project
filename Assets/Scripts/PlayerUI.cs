@@ -8,6 +8,7 @@ public class PlayerUI : MonoBehaviour
     public Text healthText;
     public Text staminaText;
     public Text ammoText;
+    public Text scoreText;
 
     void Update()
     {
@@ -20,6 +21,8 @@ public class PlayerUI : MonoBehaviour
         } else {
             ammoText.text = "Ammo: " + gunData.currentAmmo + "/" + gunData.totalAmmo;
         }
+
+        scoreText.text = "Score: " + player.currentScore;
         
     }
 }

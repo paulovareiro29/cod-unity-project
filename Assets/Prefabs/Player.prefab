@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 2619302701819219079}
   - component: {fileID: 2619302701819219078}
   - component: {fileID: 2619302701819219077}
+  - component: {fileID: 749414337861515842}
   - component: {fileID: 2619302701819219072}
   m_Layer: 0
   m_Name: Player
@@ -262,6 +263,19 @@ MonoBehaviour:
   staminaDrainRate: 80
   currentHealth: 0
   currentStamina: 0
+--- !u!114 &749414337861515842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619302701819219076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd4cc758476c731499a9b9acbba24b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadKey: 114
 --- !u!114 &2619302701819219072
 MonoBehaviour:
   m_ObjectHideFlags: 0

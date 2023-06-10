@@ -6,10 +6,25 @@ public class Target : MonoBehaviour, IDamageable
 {
 
     public float health;
+    private FPSController player;
+
+    private void Awake()
+    {
+        player = GameObject.FindObjectOfType<FPSController>();
+    }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
-        if (health <= 0) Destroy(gameObject);
+        if (health <= 0)
+        {
+            // Aumenta a pontuação do jogador antes de destruir o zumbi
+            if (player != null)
+            {
+                player.IncreaseScore(100);  // Aumenta o score do jogador em 100 pontos
+            }
+
+            Destroy(gameObject);
+        }
     }
 }
