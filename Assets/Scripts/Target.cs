@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour, IDamageable {
+public class Target : MonoBehaviour, IDamageable
+{
 
     public float health;
 
