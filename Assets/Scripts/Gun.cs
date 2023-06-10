@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour {
     [SerializeField] private GunData gunData;
     [SerializeField] private Transform cam;
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private GameObject impactEffect;
 
     float timeSinceLastShot;
 
@@ -43,6 +44,9 @@ public class Gun : MonoBehaviour {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     Debug.Log(damageable);
                     damageable?.TakeDamage(gunData.damage);
+
+                   GameObject impact = Instantiate(impactEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                   Destroy(impact, 2f);
                 }
 
                 gunData.currentAmmo--;

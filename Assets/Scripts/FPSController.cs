@@ -33,6 +33,7 @@ public class FPSController : MonoBehaviour
     public int currentHealth;
     [HideInInspector]
     public int currentStamina;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
