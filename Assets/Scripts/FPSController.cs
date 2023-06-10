@@ -47,6 +47,8 @@ public class FPSController : MonoBehaviour
     void Update()
     {
 
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
         #region Handles Movment
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);

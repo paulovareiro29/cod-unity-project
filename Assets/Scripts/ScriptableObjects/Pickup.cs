@@ -10,9 +10,23 @@ public abstract class Pickup : MonoBehaviour
 
     float timeSinceLastPickup;
 
+    Renderer renderer;
+    Renderer[] childRenderers;
+
+    private void Start() {
+        renderer = GetComponent<Renderer>();
+        childRenderers = GetComponentsInChildren<Renderer>();
+    }
+
     private void Update()
     {
         timeSinceLastPickup += Time.deltaTime;
+
+        renderer.enabled = CanPickup();
+        foreach (Renderer r in childRenderers)
+        {
+            r.enabled = CanPickup();
+        }
     }
 
     private bool CanPickup() => timeSinceLastPickup / 60f * 100f > pickupRate;
@@ -24,7 +38,6 @@ public abstract class Pickup : MonoBehaviour
         {
             if (CanPickup())
             {
-                Debug.Log("Picked up");
                 onPickup(col.gameObject);
                 timeSinceLastPickup = 0;
             }
