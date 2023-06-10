@@ -18,7 +18,7 @@ public class PlayerUI : MonoBehaviour
         if(gunData.reloading) {
             ammoText.text = "Reloading...";
         } else {
-            ammoText.text = "Ammo: " + gunData.currentAmmo + "/" + gunData.magSize;
+            ammoText.text = "Ammo: " + gunData.currentAmmo + "/" + gunData.totalAmmo;
         }
         
     }

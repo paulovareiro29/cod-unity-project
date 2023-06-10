@@ -21,7 +21,7 @@ public class Gun : MonoBehaviour {
     private void OnDisable() => gunData.reloading = false;
 
     public void StartReload() {
-        if (!gunData.reloading && this.gameObject.activeSelf)
+        if (!gunData.reloading && gunData.currentAmmo < gunData.magSize && gunData.totalAmmo != 0 && this.gameObject.activeSelf)
             StartCoroutine(Reload());
     }
 
@@ -30,7 +30,15 @@ public class Gun : MonoBehaviour {
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        gunData.currentAmmo = gunData.magSize;
+        int ammoToReload = gunData.magSize - gunData.currentAmmo;
+        gunData.totalAmmo -= ammoToReload;
+        
+        if(gunData.totalAmmo < 0) {
+            ammoToReload -= -gunData.totalAmmo;
+            gunData.totalAmmo = 0;
+        }
+        
+        gunData.currentAmmo = gunData.currentAmmo + ammoToReload;
 
         gunData.reloading = false;
     }
@@ -42,7 +50,6 @@ public class Gun : MonoBehaviour {
             if (CanShoot()) {
                 if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, gunData.maxDistance)){
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
-                    Debug.Log(damageable);
                     damageable?.TakeDamage(gunData.damage);
 
                    GameObject impact = Instantiate(impactEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));

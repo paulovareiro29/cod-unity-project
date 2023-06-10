@@ -23,11 +23,9 @@ public class ZombieController : MonoBehaviour
         if (playerObject != null)
         {
             player = playerObject.transform;
-            Debug.Log("Player found");
         }
         else
         {
-            Debug.LogError("Player object not found");
             return;
         }
 
@@ -75,7 +73,6 @@ public class ZombieController : MonoBehaviour
                 }
             }
 
-            Debug.Log("Zombie atacando o jogador!");
         }
         else
         {
