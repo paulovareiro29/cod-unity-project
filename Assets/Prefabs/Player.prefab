@@ -251,8 +251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 2619302700308194615}
-  walkSpeed: 2
-  runSpeed: 3
+  walkSpeed: 3
+  runSpeed: 5
   jumpPower: 3
   gravity: 10
   lookSpeed: 2
@@ -260,9 +260,10 @@ MonoBehaviour:
   canMove: 1
   maxHealth: 100
   maxStamina: 100
-  staminaDrainRate: 80
+  staminaDrainRate: 60
   currentHealth: 0
   currentStamina: 0
+  currentScore: 0
 --- !u!114 &749414337861515842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadKey: 114
+  gun: {fileID: 0}
 --- !u!114 &2619302701819219072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +295,7 @@ MonoBehaviour:
   healthText: {fileID: 0}
   staminaText: {fileID: 0}
   ammoText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!1001 &292872149123437103
 PrefabInstance:
   m_ObjectHideFlags: 0

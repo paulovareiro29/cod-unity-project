@@ -12,8 +12,10 @@ public abstract class Pickup : MonoBehaviour
 
     Renderer renderer;
     Renderer[] childRenderers;
+    private AudioSource audio;
 
     private void Start() {
+        audio = GetComponent<AudioSource>();
         renderer = GetComponent<Renderer>();
         childRenderers = GetComponentsInChildren<Renderer>();
     }
@@ -39,6 +41,7 @@ public abstract class Pickup : MonoBehaviour
             if (CanPickup())
             {
                 onPickup(col.gameObject);
+                audio?.Play();
                 timeSinceLastPickup = 0;
             }
         }

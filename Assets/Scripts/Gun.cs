@@ -10,23 +10,40 @@ public class Gun : MonoBehaviour {
     [SerializeField] private Transform cam;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject impactEffect;
+    private AudioSource audio;
+    private AudioSource reloadAudio;
 
     float timeSinceLastShot;
 
     private void Start() {
+        audio = GetComponent<AudioSource>();
+        AudioSource[] childAudioSources =  GetComponentsInChildren<AudioSource>();
+
+        if(childAudioSources.Length > 1) {
+            reloadAudio = childAudioSources[1];
+        }
+
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
+
+        gunData.currentAmmo = gunData.magSize;
+        gunData.totalAmmo = gunData.magSize * 3;
     }
 
     private void OnDisable() => gunData.reloading = false;
 
     public void StartReload() {
+        if (cam == null)
+            return;
+        
         if (!gunData.reloading && gunData.currentAmmo < gunData.magSize && gunData.totalAmmo != 0 && this.gameObject.activeSelf)
             StartCoroutine(Reload());
     }
 
     private IEnumerator Reload() {
         gunData.reloading = true;
+
+        reloadAudio?.Play();
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
@@ -74,5 +91,6 @@ public class Gun : MonoBehaviour {
 
     private void OnGunShot() { 
         muzzleFlash?.Play();
+        audio?.Play();
      }
 }

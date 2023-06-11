@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class FPSController : MonoBehaviour
 {
     public Camera playerCamera;
-    public float walkSpeed = 2f;
-    public float runSpeed = 4f;
+    public float walkSpeed = 4f;
+    public float runSpeed = 8f;
     public float jumpPower = 3f;
     public float gravity = 10f;
 
@@ -27,7 +27,7 @@ public class FPSController : MonoBehaviour
 
     public int maxHealth = 100;
     public int maxStamina = 100;
-    public float staminaDrainRate = 80f;
+    public float staminaDrainRate = 50f;
 
 
     [HideInInspector]
@@ -37,8 +37,11 @@ public class FPSController : MonoBehaviour
     [HideInInspector]
     public int currentScore = 0;
 
+    private AudioSource oof;
+
     void Start()
     {
+        oof = GetComponent<AudioSource>();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -57,7 +60,7 @@ public class FPSController : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
 
         // Press Left Shift to run
-        bool isRunning = Input.GetKey(KeyCode.LeftShift) && currentStamina > 0;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W) && currentStamina > 0;
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
@@ -72,7 +75,7 @@ public class FPSController : MonoBehaviour
         else if (!isRunning && currentStamina < maxStamina)
         {
             // Recupera stamina se o jogador não estiver correndo
-            currentStamina += (int)(staminaDrainRate * Time.deltaTime);
+            currentStamina += (int)(staminaDrainRate * Time.deltaTime * 4);
         }
 
         // Garante que a stamina nunca saia dos limites
@@ -116,6 +119,8 @@ public class FPSController : MonoBehaviour
     {
         // Deduz a vida do jogador
         currentHealth -= damage;
+
+        oof?.Play();
 
         // Garante que a vida nunca saia dos limites
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
