@@ -61,7 +61,7 @@ public class ZombieController : MonoBehaviour
             if (attackTimer <= 0)
             {
                 // Subtrai vida do jogador
-                FPSController playerController = player.gameObject.GetComponent<FPSController>();
+                FPSController playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FPSController>();
                 if (playerController != null)
                 {
                     playerController.TakeDamage(5);
