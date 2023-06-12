@@ -17,7 +17,7 @@ public class ZombieController : MonoBehaviour
     void Start()
     {
         // Encontra o jogador usando a tag "PlayerModel"
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerObject = GameObject.FindWithTag("Player");
 
         // Se o objeto playerObject foi encontrado, pegue seu componente Transform
         if (playerObject != null)
@@ -61,7 +61,8 @@ public class ZombieController : MonoBehaviour
             if (attackTimer <= 0)
             {
                 // Subtrai vida do jogador
-                FPSController playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FPSController>();
+                Debug.Log(GameObject.FindWithTag("Player"));
+                FPSController playerController = GameObject.FindWithTag("Player").GetComponent<FPSController>();
                 if (playerController != null)
                 {
                     playerController.TakeDamage(5);
