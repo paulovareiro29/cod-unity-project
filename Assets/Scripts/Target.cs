@@ -18,7 +18,6 @@ public class Target : MonoBehaviour, IDamageable
         health -= damage;
         if (health <= 0)
         {
-            // Aumenta a pontuação do jogador antes de destruir o zumbi
             if (player != null)
             {
                 player.IncreaseScore(100);  // Aumenta o score do jogador em 100 pontos

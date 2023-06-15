@@ -9,17 +9,14 @@ public class ZombieController : MonoBehaviour
     public float zombieSpeed = 3.0f;
     public float attackRange = 1.0f;
     private NavMeshAgent agent;
-    private Animator animator;  // Novo
+    private Animator animator;
 
-    public float attackCooldown = 1.0f;  // Tempo em segundos entre cada ataque
-    private float attackTimer = 0.0f;  // Temporizador para rastrear o cooldown
-
+    public float attackCooldown = 1.0f;
+    private float attackTimer = 0.0f;
     void Start()
     {
-        // Encontra o jogador usando a tag "PlayerModel"
         GameObject playerObject = GameObject.FindWithTag("Player");
 
-        // Se o objeto playerObject foi encontrado, pegue seu componente Transform
         if (playerObject != null)
         {
             player = playerObject.transform;
@@ -29,7 +26,6 @@ public class ZombieController : MonoBehaviour
             return;
         }
 
-        // Obtém o componente NavMeshAgent
         agent = GetComponent<NavMeshAgent>();
 
         if (agent == null)
@@ -37,7 +33,6 @@ public class ZombieController : MonoBehaviour
             Debug.LogError("NavMeshAgent not found on " + gameObject.name);
         }
 
-        // Obtém o componente Animator
         animator = GetComponent<Animator>();
 
         if (animator == null)
@@ -47,17 +42,15 @@ public class ZombieController : MonoBehaviour
     }
 
     void Update()
-{
-        // Verifique se o player, o agent e o animator estão devidamente instanciados
-        float distance = Vector3.Distance(player.position, transform.position);  // distancia entre o zumbi e o jogador
+    {
+        float distance = Vector3.Distance(player.position, transform.position);  // distancia entre o zombie e o jogador
 
-        if(distance < attackRange)
+        if (distance < attackRange)
         {
-            // Aqui adiciona o que o zumbi deve fazer quando estiver no range de ataque
             agent.isStopped = true;
             animator.SetBool("Attacking", true);
 
-            // Verifique se o zumbi pode atacar
+            // Verifica se o zombie pode atacar
             if (attackTimer <= 0)
             {
                 // Subtrai vida do jogador
@@ -66,7 +59,7 @@ public class ZombieController : MonoBehaviour
                 if (playerController != null)
                 {
                     playerController.TakeDamage(5);
-                    attackTimer = attackCooldown;  // Reseta o temporizador
+                    attackTimer = attackCooldown;
                 }
                 else
                 {
@@ -77,9 +70,8 @@ public class ZombieController : MonoBehaviour
         }
         else
         {
-            // Siga o jogador
             agent.isStopped = false;
-            animator.SetBool("Attacking", false);  // Novo
+            animator.SetBool("Attacking", false);
             agent.SetDestination(player.position);
         }
 

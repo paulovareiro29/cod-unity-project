@@ -55,7 +55,6 @@ public class FPSController : MonoBehaviour
 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        #region Handles Movment
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
@@ -66,7 +65,7 @@ public class FPSController : MonoBehaviour
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        // Drena stamina se o jogador estiver correndo
+        // Drena stamina se o jogador estiver a correr
         if (isRunning && currentStamina > 0)
         {
             currentStamina -= (int)(staminaDrainRate * Time.deltaTime);
@@ -74,17 +73,15 @@ public class FPSController : MonoBehaviour
         }
         else if (!isRunning && currentStamina < maxStamina)
         {
-            // Recupera stamina se o jogador não estiver correndo
+            // Recupera stamina se o jogador não estiver a correr
             currentStamina += (int)(staminaDrainRate * Time.deltaTime * 4);
         }
 
-        // Garante que a stamina nunca saia dos limites
+        // Garante que a stamina nunca sai dos limites
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
 
-        #endregion
 
-        #region Handles Jumping
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpPower;
@@ -99,9 +96,7 @@ public class FPSController : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        #endregion
 
-        #region Handles Rotation
         characterController.Move(moveDirection * Time.deltaTime);
 
         if (canMove)
@@ -112,7 +107,6 @@ public class FPSController : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
-        #endregion
     }
 
     public void TakeDamage(int damage)
